@@ -6,11 +6,7 @@ const passport = require('passport')
 router.get('/linkedin', passport.authenticate('linkedin'))
 
 router.get('/linkedin/callback',
-  passport.authenticate('linkedin', { failWithError: true }),
-  (req, res, next) => {
-    // res.json({ linkedin: 'success', session: req.session })
-    res.redirect('/')
-  }
+  passport.authenticate('linkedin', { successRedirect: '/', failureRedirect: '/login' })
 )
 
 router.get('/logout', (req, res, next) => {

@@ -1,10 +1,10 @@
 const passport = require('passport')
 const linkedInApi = require('../../credentials').linkedin
-const LinkedInStrategy = require('passport-linkedin').Strategy
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy
 
 module.exports = (app) => {
   passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user)
   })
 
   passport.deserializeUser((obj, done) => {
@@ -14,11 +14,17 @@ module.exports = (app) => {
   /** LinkedIn */
   passport.use(
     new LinkedInStrategy({
-      consumerKey: linkedInApi.clientId,
-      consumerSecret: linkedInApi.secret,
-      callbackURL: 'http://localhost:3000/auth/linkedin/callback'
-    }, (token, tokenSecret, profile, done) => {
-      console.log(profile)
+      clientID: linkedInApi.clientId,
+      clientSecret: linkedInApi.secret,
+      callbackURL: 'http://localhost:3000/auth/linkedin/callback',
+      scope: ['r_emailaddress', 'r_basicprofile'],
+      state: true
+    }, (accessToken, refreshToken, profile, done) => {
+      console.log({
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        profile: profile
+      })
       done(null, profile)
     })
   )
