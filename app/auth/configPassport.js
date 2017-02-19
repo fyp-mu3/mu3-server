@@ -25,7 +25,11 @@ module.exports = (app) => {
         refreshToken: refreshToken,
         profile: profile
       })
-      done(null, profile)
+      done(null, {
+        account_type: 'linkedin',
+        accessToken: accessToken,
+        id: profile.id
+      })
     })
   )
 }
