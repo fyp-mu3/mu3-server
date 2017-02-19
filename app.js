@@ -4,9 +4,13 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+var passport = require('passport')
+var session = require('express-session')
 
-var routes = require('./routes/index')
-var users = require('./routes/users')
+var configPassport = require('./app/auth/configPassport')
+
+/** Routers */
+var Routers = require('./routes/routers')
 
 var app = express()
 
@@ -21,9 +25,26 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(session(
+  {
+    secret: 'mu3-server',
+    resave: false,
+    saveUninitialized: true,
+    // enable only when https, which is out of scope in this project
+    cookie: { secure: false },
+    maxAge: 360 * 5
+  }
+))
+app.use(passport.initialize())
+app.use(passport.session())
 
-app.use('/', routes)
-app.use('/users', users)
+/** Install Routes */
+for (const route of Routers) {
+  app.use(route.path, route.route)
+}
+
+/** Configure Passport integration must be after express app config */
+configPassport(app)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
