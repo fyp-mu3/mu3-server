@@ -23,7 +23,7 @@ module.exports = (app) => {
       console.log({
         accessToken: accessToken,
         refreshToken: refreshToken,
-        profile: profile
+        // profile: profile
       })
       done(null, {
         account_type: 'linkedin',
