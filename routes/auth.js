@@ -22,7 +22,7 @@ router.get('/redirectSession', (req, res, next) => {
   }
 
   let encodedSession = btoa(JSON.stringify(req.session))
-  res.redirect(`http://localhost:8888/?session=${encodedSession}`)
+  res.redirect(`http://localhost:8888/login?session=${encodedSession}`)
   // res.json({json: encodedSession})
 })
 
