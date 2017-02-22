@@ -28,7 +28,8 @@ module.exports = (app) => {
       done(null, {
         account_type: 'linkedin',
         accessToken: accessToken,
-        id: profile.id
+        id: profile.id,
+        profile: profile
       })
     })
   )
