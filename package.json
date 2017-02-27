@@ -13,6 +13,8 @@
     "express": "~4.13.4",
     "express-session": "^1.15.1",
     "jade": "~1.11.0",
+    "mongodb": "^2.2.24",
+    "monk": "^4.0.0",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
     "passport-linkedin-oauth2": "^1.4.1",
