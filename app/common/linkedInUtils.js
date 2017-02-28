@@ -72,6 +72,25 @@ const linkedInProfileToUserScore = (profile) => {
   
 }
 
+const mapLinkedInAuthResponseToUser = (response) => {
+  if (response.profile === null) {
+    return null
+  }
+
+  let userObj = {
+    emailAddress: null
+  }
+
+  if (response.profile.emails === null || response.profile.emails.length === 0) {
+    userObj.emailAddress = null
+  } else {
+    userObj.emailAddress = response.profile.emails[0] ? response.profile.emails[0].value : null
+  }
+
+  return userObj
+}
+
 module.exports = {
-  getLinkedInProfile: getLinkedInProfile
+  getLinkedInProfile: getLinkedInProfile,
+  mapLinkedInAuthResponseToUser: mapLinkedInAuthResponseToUser
 }

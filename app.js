@@ -1,5 +1,5 @@
 // connect to database for init
-require('./db')
+const mongo = require('./db')
 
 var express = require('express')
 var path = require('path')
@@ -9,6 +9,9 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var passport = require('passport')
 var session = require('express-session')
+var MongoStore = require('connect-mongo')(session)
+// var cookieSession = require('cookie-session')
+var cors = require('cors')
 
 var configPassport = require('./app/auth/configPassport')
 
@@ -24,10 +27,12 @@ app.set('view engine', 'jade')
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'))
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
 app.use(session(
   {
     secret: 'mu3-server',
@@ -35,7 +40,8 @@ app.use(session(
     saveUninitialized: true,
     // enable only when https, which is out of scope in this project
     cookie: { secure: false },
-    maxAge: 360 * 5
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    store: new MongoStore({ url: 'mongodb://' + mongo.MONGO_URL })
   }
 ))
 app.use(passport.initialize())

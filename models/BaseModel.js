@@ -30,6 +30,12 @@ class BaseModel {
       }
     })
   }
+
+  exists (cb) {
+    return this.collection().findOne(this.uniqueFilter()).then((doc) => {
+      cb(doc !== null)
+    })
+  }
 }
 
 module.exports = BaseModel

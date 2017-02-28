@@ -1,4 +1,5 @@
-const db = require('monk')('192.168.99.100:32768/mu3-dev')
+const url = '192.168.99.100:32768/mu3-dev'
+const db = require('monk')(url)
 
 db.then(() => {
   console.log('Connected to MongoDB instance')
@@ -16,6 +17,7 @@ users.findOne({username: 'root'}).then((root) => {
 
 module.exports = {
   db: db,
+  MONGO_URL: url,
   collection: {
     users: users
   }

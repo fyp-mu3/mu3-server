@@ -5,7 +5,7 @@ class User extends BaseModel {
     super('users')
 
     this._data = obj
-    this._key = 'username'
+    this._key = 'emailAddress'
   }
 }
 
