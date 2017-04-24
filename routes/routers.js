@@ -10,6 +10,14 @@ const routers = [
   {
     path: '/auth',
     route: require('./auth')
+  },
+  {
+    path: '/challenges',
+    route: require('./challenges')
+  },
+  {
+    path: '/jobs',
+    route: require('./jobs')
   }
 ]
 

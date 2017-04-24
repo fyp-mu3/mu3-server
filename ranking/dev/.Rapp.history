@@ -1,0 +1,122 @@
+demo()
+"amazing"
+[1,2,3;4,5,6;7,8,9]
+{1,2,3;4,5,6;7,8,9}
+Sys.setenv(LANG="en_US.UTF-8")
+Sys.setenv(LC_ALL="en_US.UTF-8")
+source('~/HKUST/FYP/data_it_2/consult/applying.R', chdir = TRUE)
+source('~/HKUST/FYP/data_it_2/consult/training.R', chdir = TRUE)
+getwd()
+setwd(~/HKUST/FYP/data_it_2/consult)
+setwd("~/HKUST/FYP/data_it_2/consult")
+dataTrain <- read.csv("training_data.csv")
+head(dataTrain)
+load(logit.rda)
+load("logit.rda")
+test_data <- read.csv("test_data.csv")
+test_data$prediction <- predict(logit, test_data)
+require("doBy")
+test_data <- orderBy (~-prediction, test_data)
+test_data
+logit
+load("logit.rda")
+logit
+test_data$prediction <- predict(logit, test_data)
+test_data <- orderBy (~-prediction, test_data)
+test_data
+test_data <- read.csv("test_data.csv")
+load("logit.rda")
+test_data$prediction <- predict(logit, test_data)
+test_data <- orderBy (~-prediction, test_data)
+test_data
+logit
+logit$top100u <- 0
+logit
+summary(logit)
+install.packages("nlm")
+install.packages("nls")
+nls
+load("logit.rda")
+logit
+arg(nls)
+args(nls)
+source("/var/folders/82/srf538yd0d7d54nmv4mkp1xw0000gn/T//RtmpvOxQUx/filec98b95f31ff")#
+unlink("/var/folders/82/srf538yd0d7d54nmv4mkp1xw0000gn/T//RtmpvOxQUx/filec98b95f31ff")
+training_data
+dataTrain
+dataTrain[:worked.in.house]
+dataTrain[:100]
+dataTrain[:10]
+dataTrain[,worked.in.house]
+dataTrain[worked.in.house,]
+dataTrain[worked.in.house]
+dataTrain[,3]
+dataTrain[,4]
+dataTrain[,5]
+dataTrain$top100u
+?nls
+head(dataTrain)
+dataTrain[admit(dataTrain)==1]
+dataTrain[admit==1]
+dataTrain[$admit==1]
+table(dataTrain)
+table_data <- table(dataTrain)
+head(table_data)
+table_data
+sum(dataTrain$admit == 1 && dataTrain$mbti.e == 1)
+sum(dataTrain$admit == 0 && dataTrain$mbti.e == 1)
+sum(dataTrain$admit == 0 || dataTrain$mbti.e == 1)
+sum(dataTrain$admit == 0 & dataTrain$mbti.e == 1)
+sum(dataTrain$admit == 1 & dataTrain$mbti.e == 1)
+sum(dataTrain$admit == 0 & dataTrain$mbti.e == 1)
+sum(dataTrain$mbti.e == 1)
+sum(dataTrain$admit & dataTrain$mbti.e)
+top(dataTrain)
+(dataTrain)head
+head(dataTrain)
+sum(dataTrain$admit & dataTrain$mbti.e) / sum(dataTrain$admit)
+sum(!dataTrain$mbti.e)
+sum(dataTrain$admit & !dataTrain$mbti.e)
+26+18
+sum(dataTrain$admit)
+head(dataTrain)
+a <- "abcd"
+a[1]
+a[1][1]
+a[1]
+a
+a[2]
+a.substring
+substring(a,1,1)
+substring(a,1,2)
+substring(a,1,1)
+toupper(a)
+tolower(a)
+getwd()
+read.csv("test_data-sorted.csv")
+setwd("../dev/")
+read.csv("test_data-sorted.csv")
+setwd("../pm/")
+read.csv("test_data-sorted.csv")
+setwd("../inhouse/")
+read.csv("test_data-sorted.csv")
+setwd("../consult/")
+read.csv("test_data-sorted.csv")
+load(model)
+load(model.rda)
+load("model.rda")
+model
+load("logit")
+load("logitrda")
+load("logit.rda")
+logit
+setwd("../consult2/")
+load("logit.rda")
+logit
+logit
+result <-read.csv("test_data copie-sorted.csv")
+result
+setwd("../dev2/")
+result <-read.csv("test_data copie-sorted.csv")
+result <-read.csv("test_data-sorted.csv")
+result

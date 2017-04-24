@@ -44,3 +44,35 @@ const initRootUser = () => {
     console.error(err)
   })
 }
+
+const CodeChallenge = require('./models/CodeChallenge')
+const questions = require('./app/common/initQuestionBank')
+const initCodeChallenges = () => {
+  for (let question of questions) {
+    let obj = new CodeChallenge(question)
+    obj.save()
+  }
+}
+
+const Company = require('./models/Company')
+const companies = require('./app/common/companyBank')
+const initCompanies = () => {
+  for (let company of companies) {
+    let obj = new Company(company)
+    obj.save()
+  }
+}
+
+const Job = require('./models/Job')
+const jobs = require('./app/common/jobBank')
+const initJobs = () => {
+  for (let job of jobs) {
+    let obj = new Job(job)
+    obj.save()
+  }
+}
+
+/** jobs */
+initCodeChallenges()
+initCompanies()
+initJobs()

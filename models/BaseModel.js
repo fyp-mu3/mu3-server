@@ -17,14 +17,13 @@ class BaseModel {
   }
 
   save (options = {upsert: true}) {
-    const filter = {}
-    filter[this._key] = this._data[this._key]
+    const filter = this.uniqueFilter()
 
     return db.get(this._collection).findOne(filter)
     .then((doc) => {
-      if (doc && options.upsert) {
+      if (doc) {
         /** if user exists, update */
-        return db.get(this._collection).update(doc, this._data)
+        return db.get(this._collection).update(doc, { $set: this._data })
       } else {
         return db.get(this._collection).insert(this._data)
       }
@@ -35,6 +34,14 @@ class BaseModel {
     return this.collection().findOne(this.uniqueFilter()).then((doc) => {
       cb(doc !== null)
     })
+  }
+
+  findOne (query) {
+    return db.get(this._collection).findOne(query)
+  }
+
+  find (query) {
+    return db.get(this._collection).find(query || {})
   }
 }
 

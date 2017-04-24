@@ -4,6 +4,9 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy
 
 const linkedInUtils = require('../common/linkedInUtils')
 
+const _User = require('../../models/User')
+const User = new _User()
+
 module.exports = (app) => {
   passport.serializeUser((user, done) => {
     done(null, user)
@@ -27,12 +30,17 @@ module.exports = (app) => {
         refreshToken: refreshToken,
         // profile: profile
       })
-      done(null, {
-        account_type: 'linkedin',
-        accessToken: accessToken,
-        id: profile.id,
-        profile: profile,
-        extractedUser: linkedInUtils.mapLinkedInAuthResponseToUser({profile: profile})
+      const extractedUser = linkedInUtils.mapLinkedInAuthResponseToUser({profile: profile})
+
+      User.findOne({emailAddress: extractedUser.emailAddress}).then((systemUser) => {
+        done(null, {
+          account_type: 'linkedin',
+          accessToken: accessToken,
+          id: profile.id,
+          profile: profile,
+          extractedUser: extractedUser,
+          systemUser: systemUser
+        })
       })
     })
   )
