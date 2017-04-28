@@ -72,7 +72,25 @@ const initJobs = () => {
   }
 }
 
+const University = require('./models/University')
+const csv2json = require('csvtojson')
+const initUniversities = () => {
+  csv2json()
+  .fromFile('./top100u.csv')
+  .on('json', json => {
+    let uni = new University({
+      name: json.uni_name,
+      abbr: json.abbr
+    })
+    uni.save()
+  })
+  .on('done', error => {
+    if (error) return console.error(error)
+  })
+}
+
 /** jobs */
 initCodeChallenges()
 initCompanies()
 initJobs()
+initUniversities()

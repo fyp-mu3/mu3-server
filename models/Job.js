@@ -57,14 +57,21 @@ class Job extends BaseModel {
       company: null,
       description: '',
       salary: '',
-      rankRequired: 'c'
+      rankRequired: 0
     }
 
     if (raw.title) { transformed.title = raw.title }
     if (raw.company) { transformed.company = raw.company }
     if (raw.description) { transformed.description = raw.description }
     if (raw.salary) { transformed.salary = raw.salary }
-    if (raw.rankRequired) { transformed.rankRequired = raw.rankRequired }
+    if (raw.rankRequired) {
+      let _rank = 0
+      if (raw.rankRequired === 's') _rank = 3
+      if (raw.rankRequired === 'a') _rank = 2
+      if (raw.rankRequired === 'b') _rank = 1
+      if (raw.rankRequired === 'c') _rank = 0
+      transformed.rankRequired = _rank
+    }
 
     return transformed
   }

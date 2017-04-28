@@ -43,6 +43,16 @@ router.get('/', needAuth, function (req, res, next) {
       } else {
         item.applied = false
       }
+
+      if (typeof item.rankRequired === 'string') {
+        if (item.rankRequired === 's') item.rankRequired = 3
+        if (item.rankRequired === 'a') item.rankRequired = 2
+        if (item.rankRequired === 'b') item.rankRequired = 1
+        if (item.rankRequired === 'c') item.rankRequired = 0
+      }
+
+      item.canApply = (req._user.rank > item.rankRequired)
+      
       return item
     })
     res.json(mapped)
