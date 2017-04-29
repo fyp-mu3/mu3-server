@@ -52,27 +52,30 @@ class Job extends BaseModel {
   /** Helpers */
   static transform (raw) {
     let transformed = {
-      id: uuid(),
-      title: '',
-      company: null,
-      description: '',
-      salary: '',
-      rankRequired: 0
+      id: raw.id || uuid()
     }
 
     if (raw.title) { transformed.title = raw.title }
     if (raw.company) { transformed.company = raw.company }
     if (raw.description) { transformed.description = raw.description }
     if (raw.salary) { transformed.salary = raw.salary }
-    if (raw.rankRequired) {
+    if (raw.rankRequired || raw.rankRequired === 0) {
       let _rank = 0
       if (raw.rankRequired === 's') _rank = 3
       if (raw.rankRequired === 'a') _rank = 2
       if (raw.rankRequired === 'b') _rank = 1
       if (raw.rankRequired === 'c') _rank = 0
+      if (typeof raw.rankRequired === 'number') {
+        _rank = raw.rankRequired
+      }
       transformed.rankRequired = _rank
     }
+    if (raw.location) { transformed.location = raw.location }
+    if (raw.condition) { transformed.condition = raw.condition }
+    if (raw.skills) { transformed.skills = raw.skills }
+    if (raw.tags) { transformed.tags = raw.tags }
 
+    if (raw.delete) { transformed.delete = raw.delete }
     return transformed
   }
 

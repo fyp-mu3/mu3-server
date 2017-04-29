@@ -51,11 +51,11 @@ router.get('/', needAuth, function (req, res, next) {
         if (item.rankRequired === 'c') item.rankRequired = 0
       }
 
-      item.canApply = (req._user.rank > item.rankRequired)
+      item.canApply = (req._user.rank >= item.rankRequired)
       
       return item
     })
-    res.json(mapped)
+    res.json(mapped.filter(item => !item.delete))
   })
   .catch((err) => res.json(err))
 })
@@ -153,12 +153,32 @@ const transformUserToCSVModel = (user) => {
   }, {})
 
   model.person = user.username
-  model.top100u = 0
+  model.top100u = user.profile.isTop100u ? 1 : 0
   model['mbti.e'] = user.profile.mbti.e
   model['mbti.n'] = user.profile.mbti.n
   model['mbti.t'] = user.profile.mbti.t
   model['mbti.j'] = user.profile.mbti.j
-  
+
+  // iterate all positions
+  if (user.profile.positions && user.profile.mapped_positions) {
+    user.profile.mapped_positions.forEach((position) => {
+      if (position.category === 'cf') {
+        model['worked.it.consult'] = 1
+      }
+
+      if (position.category === 'inhouse') {
+        model['worked.in.house'] = 1
+      }
+    })
+  }
+
+  // education
+  if (user.profile.education && user.profile.education.name) {
+    if (user.profile.education.department === 'cs') {
+      model['comp.rel.maj'] = 1
+    }
+  }
+
   return model
 }
 

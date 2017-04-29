@@ -33,6 +33,15 @@ router.put('/update', function (req, res, next) {
 
 router.get('/updateRanking', needAuth, async (req, res, next) => {
   let currentUser = req._user
+  if (!currentUser.challenge_sessions) {
+    let emptyRankModel = {
+      username: currentUser.username,
+      rank: 0,
+      numSolvedChallenges: 0,
+      solvedChallenges: []
+    }
+    return response.success(res, 1, emptyRankModel)
+  }
   let challengeIds = Object.keys(currentUser.challenge_sessions)
   let solved = []
   challengeIds.forEach(key => {
